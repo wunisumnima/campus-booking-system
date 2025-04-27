@@ -26,7 +26,7 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     errorEl.textContent = "";
   
     // Send to backend (will set up next)
-    fetch("${backendURL}/api/register", {
+    fetch(`${backendURL}/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
