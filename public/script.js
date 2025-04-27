@@ -1,4 +1,8 @@
 // public/script.js
+const backendURL = window.location.hostname.includes('localhost')
+  ? 'http://localhost:3000'
+  : 'https://student-resource-booking.onrender.com';
+
 document.getElementById("registerForm").addEventListener("submit", function (e) {
     e.preventDefault();
     
@@ -22,7 +26,7 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     errorEl.textContent = "";
   
     // Send to backend (will set up next)
-    fetch("http://localhost:3000/api/register", {
+    fetch("${backendURL}/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
