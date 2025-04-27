@@ -265,7 +265,7 @@
 
 <script>
   const backendURL = window.location.hostname.includes('localhost')
-  ? 'http://localhost:3000'
+  ? 'https://localhost:3000'
   : 'https://student-resource-booking.onrender.com';
   function logout() {
     localStorage.removeItem('token');
@@ -307,7 +307,7 @@
     const description = document.getElementById('description').value;
     const slots = addedSlots;
 
-    const res = await fetch('http://${backendURL}/api/admin/resources', {
+    const res = await fetch('https://${backendURL}/api/admin/resources', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -325,7 +325,7 @@
   });
 
   async function loadResources() {
-    const res = await fetch('http://${backendURL}/api/admin/resources', {
+    const res = await fetch('https://${backendURL}/api/admin/resources', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -352,7 +352,7 @@
   async function deleteResource(id) {
     if (!confirm('Delete this resource?')) return;
 
-    const res = await fetch(`http://${backendURL}/api/admin/resources/${id}`, {
+    const res = await fetch(`https://${backendURL}/api/admin/resources/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -399,7 +399,7 @@
       status: document.getElementById('editStatus').value
     };
 
-    const res = await fetch(`http://${backendURL}/api/admin/resources/${id}`, {
+    const res = await fetch(`https://${backendURL}/api/admin/resources/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -415,7 +415,7 @@
   });
 
   async function fetchBookings() {
-    const res = await fetch('http://${backendURL}/api/admin/bookings', {
+    const res = await fetch('https://${backendURL}/api/admin/bookings', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -451,7 +451,7 @@
   async function approveBooking(id) {
     if (!confirm('Are you sure you want to approve this booking?')) return;
   
-    const res = await fetch(`http://${backendURL}/api/admin/bookings/${id}/approve`, {
+    const res = await fetch(`https://${backendURL}/api/admin/bookings/${id}/approve`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -466,7 +466,7 @@
   async function rejectBooking(id) {
     if (!confirm('Are you sure you want to reject this booking?')) return;
   
-    const res = await fetch(`http://${backendURL}/api/admin/bookings/${id}/reject`, {
+    const res = await fetch(`https://${backendURL}/api/admin/bookings/${id}/reject`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`
@@ -481,7 +481,7 @@
   async function deleteBooking(id) {
     if (!confirm('Are you sure you want to delete this booking?')) return;
   
-    const res = await fetch(`http://${backendURL}/api/admin/bookings/${id}`, {
+    const res = await fetch(`https://${backendURL}/api/admin/bookings/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`
