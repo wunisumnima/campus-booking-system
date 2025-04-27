@@ -1,4 +1,5 @@
 **Student Resource Booking System**
+
 📚 Project Overview
 The Student Resource Booking System allows students to register, login, and book resources like study rooms or equipment.
 Admins can manage available resources and view bookings.
@@ -40,30 +41,14 @@ Admin Panel (15 Marks)
 
 🛠 Installation Instructions (Running Locally)
 1. Clone the repositories
-git clone https://github.com/your-username/student-resource-booking-frontend.git
-git clone https://github.com/your-username/student-resource-booking-backend.git
+   git clone https://github.com/wunisumnima/campus-booking-system.git
 
-2. Backend Setup
-cd student-resource-booking-backend
-npm install
-Create a .env file with your environment variables:
-PORT=3000
-DB_HOST=your-database-host
-DB_USER=your-database-user
-DB_PASSWORD=your-database-password
-DB_NAME=your-database-name
-JWT_SECRET=your-jwt-secret
-Start the backend server:
-npm start
+3. Ensure you have internet connection (to access online database)
 
-3. Frontend Setup
-Simply open the index.html file in a browser for local development.
+4. In your terminal/command line run:
+   cd campus-booking-system
+   node server/index.js
 
-Or use a simple static server:
-cd student-resource-booking-frontend
-npx serve .
-
-4. Usage
-Visit your Frontend URL.
-Register a new student account or login as an admin.
+5. Register a new student/admin account or login using the test login details.
+   
 Start booking resources or managing resources via the dashboard!
