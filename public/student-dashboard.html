@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Basic Reset & Body Styling */
+    body {
+      background-image: url('acity_bg_image.jpeg');
+      background-size: cover; /* Ensure the image covers the whole page */
+      background-position: center; /* Center the image */
+      background-attachment: fixed; /* Ensure the background is fixed during scroll */
+      position: relative;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  
+    h2 {
+      font-size: 32px;
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      font-size: 18px;
+      color: #636e72;
+      margin-bottom: 20px;
+    }
+  
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+  
+    button:hover {
+      background-color: #0056b3;
+    }
+  
+    /* Welcome Section */
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+  
+    .welcome-section h2 {
+      font-size: 36px;
+      color: #2d3436;
+    }
+  
+    .welcome-section p {
+      font-size: 20px;
+      color: #636e72;
+    }
+  
+    /* Resources Section */
+    .resources-section {
+      margin-top: 50px;
+      text-align: left;
+    }
+  
+    .resources-section h3 {
+      font-size: 28px;
+      color: #2d3436;
+      margin-bottom: 20px;
+    }
+  
+    .resources-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+  
+    .resource-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+    }
+  
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
+  
+    .resource-card h3 {
+      font-size: 22px;
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+  
+    .resource-card p {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+  
+    .view-slots-btn {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 0;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+  
+    .view-slots-btn:hover {
+      background-color: #218838;
+    }
+  
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+  
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+  
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  
+    .close {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+    }
+  
+    .slots-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+  
+    .slot-item {
+      background-color: #f0f0f0;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .slot-item:hover {
+      background-color: #d6d6d6;
+    }
+  
+    .book-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 20px;
+    }
+  
+    .book-btn:hover {
+      background-color: #0056b3;
+    }
+  
+    /* Bookings Section */
+    .bookings-section {
+      margin-top: 50px;
+      text-align: left;
+    }
+  
+    .bookings-section h3 {
+      font-size: 28px;
+      color: #2d3436;
+      margin-bottom: 20px;
+    }
+  
+    .booking-item {
+      background-color: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      margin-bottom: 20px;
+    }
+  
+    .booking-item p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+  
+    .booking-btn, .cancel-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .booking-btn {
+      background-color: #ffc107;
+      color: #212529;
+    }
+  
+    .cancel-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+  
+    .booking-btn:hover {
+      background-color: #e0a800;
+    }
+  
+    .cancel-btn:hover {
+      background-color: #c82333;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <div class="container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h2>Welcome, Student!</h2>
+      <p>Here you can view and book campus resources.</p>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Resources Section -->
+    <div class="resources-section">
+      <h3>Available Resources</h3>
+      <div class="resources-list" id="resources-list">
+        <!-- Resources will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <!-- Bookings Section -->
+    <div class="bookings-section">
+      <h3>Your Bookings</h3>
+      <div id="bookings-list">
+        <!-- Dynamic booking items will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Viewing Time Slots -->
+  <div class="modal" id="slots-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Select Time Slot</h3>
+        <span class="close" onclick="closeModal()">&times;</span>
+      </div>
+      <ul class="slots-list" id="slots-list">
+        <!-- Time slots will be inserted here -->
+      </ul>
+      <button class="book-btn" id="book-btn" onclick="bookSlot()">Book Slot</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to log out the user and remove token from localStorage
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+    
+    // Function to get the token from localStorage
+    function getToken() {
+      return localStorage.getItem('token');
+    }
+  
+    // Function to add authorization header to fetch requests
+    function addAuthHeader(headers = {}) {
+      const token = getToken();
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      return headers;
+    }
+  
+    // On DOMContentLoaded, fetch resources and display them
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/resources', {
+        method: 'GET',
+        headers: addAuthHeader() // Add token to request header
+      })
+        .then(response => response.json())
+        .then(resources => {
+          const resourceList = document.getElementById('resources-list');
+  
+          resources.forEach(resource => {
+            const resourceCard = document.createElement('div');
+            resourceCard.classList.add('resource-card');
+  
+            resourceCard.innerHTML = `
+              <h3>${resource.name}</h3>
+              <p>${resource.description}</p>
+              <button class="view-slots-btn" onclick="viewSlots(${resource.id})">View Time Slots</button>
+            `;
+            resourceList.appendChild(resourceCard);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading resources:', error);
+        });
+
+        // Fetch bookings
+        loadBookings();
+    });
+  
+    // Function to view available slots for a specific resource
+    async function viewSlots(resourceId, onSlotSelected = null) {
+      try {
+        const response = await fetch(`/api/slots/${resourceId}`, {
+          method: 'GET',
+          headers: addAuthHeader()
+        });
+        const data = await response.json();
+
+        if (data.success) {
+          const slotsList = document.getElementById('slots-list');
+          slotsList.innerHTML = '';
+
+          data.slots.forEach(slotObj => {
+            console.log('Slot Object:', slotObj);
+
+            const li = document.createElement('li');
+            li.className = 'slot-item';
+            li.textContent = slotObj.slot;
+
+            if (slotObj.isAvailable) {
+              // Available slot — make clickable
+              li.addEventListener('click', () => {
+                bookSlot(resourceId, slotObj.id);
+              });
+            } else {
+              // Booked or Approved slot — grey it out and disable click
+              li.style.color = 'gray';
+              li.style.textDecoration = 'line-through';
+              li.style.cursor = 'not-allowed';
+            }
+
+            // // If a custom callback is provided, use it
+            // li.addEventListener('click', () => {
+            //  if (onSlotSelected) {
+            //    onSlotSelected(slotObj.id);
+            //  } else {
+            //    // Normal behavior: book the slot
+            //    bookSlot(resourceId, slotObj.id);
+            //  }
+            //});
+
+            slotsList.appendChild(li);
+          });
+
+          document.getElementById('slots-modal').style.display = 'flex';
+        } else {
+          alert('Failed to fetch slots.');
+        }
+      } catch (error) {
+        console.error('Error fetching slots:', error);
+        alert('Something went wrong while fetching slots.');
+      }
+    }
+
+    // Function to book a selected slot
+    async function bookSlot(resourceId, slotId) {
+      if (!confirm(`Do you want to book this slot?`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: {
+            ...addAuthHeader(),
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ resourceId, slotId })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Booking successful!');
+          closeModal();
+        } else {
+          alert('Booking failed: ' + (data.message || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error booking slot:', error);
+        alert('Something went wrong during booking.');
+      }
+      loadBookings();
+    }
+  
+    // Function to load student's bookings
+    async function loadBookings() {
+      try {
+        const response = await fetch('/api/bookings', {
+          method: 'GET',
+          headers: addAuthHeader()
+        });
+        const data = await response.json();
+
+        const bookingsList = document.getElementById('bookings-list');
+        bookingsList.innerHTML = '';
+
+        if (data.success && data.bookings.length > 0) {
+          data.bookings.forEach(booking => {
+            const bookingCard = document.createElement('div');
+            bookingCard.classList.add('booking-card');
+
+            bookingCard.innerHTML = `
+              <p><strong>Resource:</strong> ${booking.resourceName}</p>
+              <p><strong>Slot:</strong> ${booking.slot}</p>
+              <p><strong>Status:</strong> ${booking.status}</p>
+              <button onclick="updateBooking(${booking.id}, ${booking.resourceId})">Update</button>
+              <button onclick="cancelBooking(${booking.id})">Cancel</button>
+            `;
+
+            bookingsList.appendChild(bookingCard);
+          });
+        } else {
+          bookingsList.innerHTML = '<p>No bookings found.</p>';
+        }
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+        alert('Could not load your bookings.');
+      }
+    }
+
+    // Function to update a booking (choose a new slot)
+    function updateBooking(bookingId, resourceId) {
+      viewSlots(resourceId, async (newSlotId) => {
+        try {
+          const response = await fetch(`/api/bookings/${bookingId}`, {
+            method: 'PUT',
+            headers: {
+              ...addAuthHeader(),
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newSlotId })
+          });
+    
+          const data = await response.json();
+    
+          if (data.success) {
+            alert('Booking updated successfully!');
+            document.getElementById('slots-modal').style.display = 'none'; // close modal
+            loadBookings(); // Refresh bookings
+          } else {
+            alert('Update failed: ' + (data.message || 'Unknown error'));
+          }
+        } catch (error) {
+          console.error('Error updating booking:', error);
+          alert('Something went wrong.');
+        }
+      });
+
+      loadBookings();
+    }
+    
+
+    // Function to cancel a booking
+    async function cancelBooking(bookingId) {
+      if (!confirm('Are you sure you want to cancel this booking?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/bookings/${bookingId}`, {
+          method: 'DELETE',
+          headers: addAuthHeader()
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Booking canceled.');
+          loadBookings(); // Refresh bookings
+        } else {
+          alert('Cancel failed: ' + (data.message || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error canceling booking:', error);
+        alert('Something went wrong.');
+      }
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      document.getElementById('slots-modal').style.display = 'none';
+    }
+
+  </script>
+  
+</body>
+</html>

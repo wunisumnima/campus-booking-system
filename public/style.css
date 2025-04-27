@@ -1,0 +1,70 @@
+/* public/style.css */
+body {
+    background-image: url('acity_bg_image.jpeg');
+    background-size: cover; /* Ensure the image covers the whole page */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Ensure the background is fixed during scroll */
+    position: relative;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    background: white;
+    padding: 30px;
+    padding-right: 50px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #45a049;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+
+  /* Add this to your style.css */
+
+a {
+  color: blue; /* Blue color for the link */
+  text-decoration: none; /* Remove the underline */
+  font-weight: bold; /* Optional: Make the link bold */
+}
+
+a:hover {
+  color: darkblue; /* Darker blue when hovered */
+  text-decoration: underline; /* Optional: Add underline on hover */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
