@@ -38,6 +38,8 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
       if (data.success) {
         alert("Registration successful!");
         // Redirect or clear form
+        // Redirect to login page
+        window.location.href = 'login.html'; // <-- change to your login page URL
       } else {
         errorEl.textContent = data.message || "Registration failed.";
       }
